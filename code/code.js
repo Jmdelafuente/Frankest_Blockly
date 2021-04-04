@@ -15,8 +15,7 @@
  */
 
 /**
- * @fileoverview JavaScript for Frankest's Code.
- * @author fraser@google.com (Neil Fraser)
+ * @fileoverview Blockly and Python for Frankest's Code.
  * @author juan.delafuente@fi.uncoma.edu.ar (Juan de la Fuente)
  */
 'use strict';
@@ -469,6 +468,25 @@ Code.init = function() {
       function(m, p1, p2) {return p1 + MSG[p2];});
   var toolboxXml = Blockly.Xml.textToDom(toolboxText);
 
+  // Code.workspace = Blockly.inject('content_blocks',
+  //     {grid:
+  //         {spacing: 25,
+  //          length: 3,
+  //          colour: '#ccc',
+  //          snap: true},
+  //      media: '../../media/',
+  //      rtl: rtl,
+  //      toolbox: toolboxXml,
+  //      zoom:
+  //          {controls: true,
+  //           wheel: true},
+  //      maxBlocks : Infinity,
+  //   	 trashcan : true,
+  //      sounds: true,
+  //      css:true
+  //     });
+
+  // var toolbox = document.getElementById("toolbox");
   Code.workspace = Blockly.inject('content_blocks',
       {grid:
           {spacing: 25,
@@ -480,11 +498,12 @@ Code.init = function() {
        toolbox: toolboxXml,
        zoom:
            {controls: true,
-            wheel: true}
+            wheel: true},
+       maxBlocks : Infinity,
+       trashcan : true,
+       sounds: true,
+       css:true
       });
-
-  // var toolbox = document.getElementById("toolbox");
-
   var options = {
     grid:
         {spacing: 25,
