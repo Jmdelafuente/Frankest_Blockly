@@ -1,183 +1,376 @@
 // Generamos los bloques gráficos de Frankest y los agregamos a Blockly
-Blockly.defineBlocksWithJsonArray([{
-  "type": "frankest_adelante",
-  "message0": "Avanzar %1 pasos",
-  "args0": [
-    {
-      "type": "field_number",
-      "name": "pasos",
-      "value": 0,
-      "min": 1,
-      "max": 10,
-      "precision": 1
-    }
-  ],
-  "inputsInline": true,
-  "previousStatement": null,
-  "nextStatement": null,
-  "colour": 230,
-  "tooltip": "Cantidad de pasos para adelante",
-  "helpUrl": ""
-},
-{
-  "type": "frankest_init",
-  "message0": "PROGRAMA %1",
-  "args0": [
-    {
-      "type": "field_input",
-      "name": "NombrePrograma",
-      "text": "programa"
-    }
-  ],
-  "nextStatement": "frankestito",
-  "colour": 0,
-  "tooltip": "Comenzar a utilizar a Frankestito",
-  "helpUrl": ""
-},
-{
-  "type": "frankest_girar",
-  "message0": "Girar hacia %1 %2  pasos",
-  "args0": [
-    {
-      "type": "field_dropdown",
-      "name": "direccion",
-      "options": [
-        [
-          "derecha",
-          "derecha"
+Blockly.defineBlocksWithJsonArray([
+  // {
+  //   type: "inicializar_frankestito",
+  //   message0: "Utilizar robot %1",
+  //   args0: [
+  //     {
+  //       type: "field_dropdown",
+  //       name: "robot",
+  //       options: [
+  //         ["simulador", "robofai"],
+  //         ["rojo", "robofaiRojo"],
+  //         ["azul", "robofaiAzul"],
+  //         ["blanco", "robofaiBlanco"],
+  //         ["negro", "robofaiNegro"],
+  //       ],
+  //     },
+  //   ],
+  //   previousStatement: "inicializar_frankestito",
+  //   nextStatement: null,
+  //   colour: 60,
+  //   tooltip: "Elige un robot para ejecutar el programa",
+  //   helpUrl: "",
+  // },
+  {
+    type: "adelante",
+    message0: "Adelante %1 a velocidad %2 %3 durante %4 segundos",
+    args0: [
+      {
+        type: "input_dummy",
+      },
+      {
+        type: "field_number",
+        name: "velocidad",
+        value: 0.5,
+        min: 0.1,
+        max: 1,
+        precision: 0.6,
+      },
+      {
+        type: "input_dummy",
+        align: "CENTRE",
+      },
+      {
+        type: "field_number",
+        name: "tiempo",
+        value: 1,
+        min: 1,
+        max: 20,
+        precision: 1,
+      },
+    ],
+    inputsInline: true,
+    previousStatement: null,
+    nextStatement: null,
+    colour: 230,
+    tooltip: "Avanzar durante una cantidad de segundos",
+    helpUrl: "",
+  },
+  {
+    type: "verfoto",
+    message0: "Ver foto",
+    previousStatement: null,
+    nextStatement: null,
+    colour: 160,
+    tooltip: "Tomar una foto y visualizarla",
+    helpUrl: "",
+  },
+  // {
+  //   type: "inicializar_programa",
+  //   message0: "PROGRAMA %1 CREADO POR %2",
+  //   args0: [
+  //     {
+  //       type: "field_input",
+  //       name: "nombre_programa",
+  //       text: "Nombre del Programa",
+  //     },
+  //     {
+  //       type: "field_input",
+  //       name: "nombre_autor",
+  //       text: "autores",
+  //     },
+  //   ],
+  //   nextStatement: "robot",
+  //   colour: 60,
+  //   tooltip: "Comenzar a utilizar a Frankestito",
+  //   helpUrl: "",
+  // },
+  {
+    type: "inicializar_programa",
+    message0: "PROGRAMA %1 CREADO POR %2 %3 UTILIZANDO %4 %5",
+    args0: [
+      {
+        type: "field_input",
+        name: "nombre_programa",
+        text: "nombre del Programa",
+      },
+      {
+        type: "field_input",
+        name: "nombre_autor",
+        text: "creadores",
+      },
+      {
+        type: "input_dummy",
+      },
+      {
+        type: "field_dropdown",
+        name: "robot",
+        options: [
+          ["Simulador", "robofaiSimulador"],
+          ["Robot rojo", "robofaiRojo"],
+          ["Robot azul", "robofaiAzul"],
+          ["Robot blanco", "robofaiBlanco"],
+          ["Robot negro", "robofaiNegro"],
         ],
-        [
-          "izquierda",
-          "izquierda"
-        ]
-      ]
-    },
-    {
-      "type": "field_number",
-      "name": "pasosgiro",
-      "value": 1,
-      "min": 1,
-      "max": 15,
-      "precision": 1
-    }
-  ],
-  "previousStatement": null,
-  "nextStatement": null,
-  "colour": 210,
-  "tooltip": "Añade un giro",
-  "helpUrl": ""
-},
-{
-  "type": "frankest_verfoto",
-  "message0": "Ver foto",
-  "previousStatement": null,
-  "nextStatement": "Array",
-  "colour": 160,
-  "tooltip": "Tomar una foto y visualizarla",
-  "helpUrl": ""
-},
-{
-  "type": "frankest_cuantocolor",
-  "message0": "cuanto color %1 %2 veo",
-  "args0": [
-    {
-      "type": "field_dropdown",
-      "name": "color",
-      "options": [
-        [
-          "ROJO",
-          "ROJO"
+      },
+      {
+        type: "input_statement",
+        name: "programa_frankest",
+        check: "inicializar_robot",
+      },
+    ],
+    colour: 60,
+    tooltip: "Comenzar a utilizar a Frankestito",
+    helpUrl: "",
+  },
+  {
+    type: "atras",
+    message0: "Atras %1 a velocidad %2 %3 durante %4 segundos",
+    args0: [
+      {
+        type: "input_dummy",
+      },
+      {
+        type: "field_number",
+        name: "velocidad",
+        value: 0.5,
+        min: 0.1,
+        max: 1,
+        precision: 0.6,
+      },
+      {
+        type: "input_dummy",
+        align: "CENTRE",
+      },
+      {
+        type: "field_number",
+        name: "tiempo",
+        value: 1,
+        min: 1,
+        max: 20,
+        precision: 1,
+      },
+    ],
+    inputsInline: true,
+    previousStatement: null,
+    nextStatement: null,
+    colour: 230,
+    tooltip: "Retroceder una cantidad de segundos",
+    helpUrl: "",
+  },
+  {
+    type: "izquierda",
+    message0: "Izquierda %1 a velocidad %2 %3 durante %4 segundos",
+    args0: [
+      {
+        type: "input_dummy",
+      },
+      {
+        type: "field_number",
+        name: "velocidad",
+        value: 0.5,
+        min: 0.1,
+        max: 1,
+        precision: 0.6,
+      },
+      {
+        type: "input_dummy",
+        align: "CENTRE",
+      },
+      {
+        type: "field_number",
+        name: "tiempo",
+        value: 1,
+        min: 1,
+        max: 20,
+        precision: 1,
+      },
+    ],
+    inputsInline: true,
+    previousStatement: null,
+    nextStatement: null,
+    colour: 230,
+    tooltip: "Girar hacia la izquierda una cantidad de segundos",
+    helpUrl: "",
+  },
+  {
+    type: "derecha",
+    message0: "Derecha %1 a velocidad %2 %3 durante %4 segundos",
+    args0: [
+      {
+        type: "input_dummy",
+      },
+      {
+        type: "field_number",
+        name: "velocidad",
+        value: 0.5,
+        min: 0.1,
+        max: 1,
+        precision: 0.6,
+      },
+      {
+        type: "input_dummy",
+        align: "CENTRE",
+      },
+      {
+        type: "field_number",
+        name: "tiempo",
+        value: 1,
+        min: 1,
+        max: 20,
+        precision: 1,
+      },
+    ],
+    inputsInline: true,
+    colour: 230,
+    tooltip: "Girar hacia la derecha una cantidad de segundos",
+    helpUrl: "",
+  },
+  {
+    type: "buscarcolor",
+    message0: "donde veo el color %1",
+    args0: [
+      {
+        type: "field_dropdown",
+        name: "buscarcolor",
+        options: [
+          ["Rojo", "ROJO"],
+          ["Azul", "AZUL"],
+          ["Verde", "VERDE"],
+          ["Blanco", "BLANCO"],
+          ["Negro", "NEGRO"],
         ],
-        [
-          "AZUL",
-          "AZUL"
+      },
+    ],
+    inputsInline: true,
+    output: "Number",
+    colour: 160,
+    tooltip: "Posición de un color en la imagen (valor entre 0° y 180°)",
+    helpUrl: "",
+  },
+  {
+    type: "cuantocolor",
+    lastDummyAlign0: "CENTRE",
+    message0: "cuanto color %1 veo",
+    args0: [
+      {
+        type: "field_dropdown",
+        name: "cuantocolor",
+        options: [
+          ["Rojo", "ROJO"],
+          ["Azul", "AZUL"],
+          ["Verde", "VERDE"],
+          ["Blanco", "BLANCO"],
+          ["Negro", "NEGRO"],
         ],
-        [
-          "VERDE",
-          "VERDE"
-        ]
-      ]
-    },
-    {
-      "type": "input_dummy"
-    }
-  ],
-  "inputsInline": true,
-  "output": "Number",
-  "colour": 160,
-  "tooltip": "Analizar cuanto color hay en la imagen",
-  "helpUrl": ""
-},
-{
-  "type": "frankest_atras",
-  "message0": "Retroceder %1 pasos",
-  "args0": [
-    {
-      "type": "field_number",
-      "name": "pasos",
-      "value": 0,
-      "min": 1,
-      "max": 10,
-      "precision": 1
-    }
-  ],
-  "inputsInline": true,
-  "previousStatement": null,
-  "nextStatement": null,
-  "colour": 230,
-  "tooltip": "Cantidad de pasos hacia atras",
-  "helpUrl": ""
-}]);
+      },
+    ],
+    inputsInline: true,
+    output: "Number",
+    colour: 160,
+    tooltip: "Cantidad de un color en la imagen",
+    helpUrl: "",
+  },
+  {
+    type: "beep",
+    message0: "Beep",
+    colour: 290,
+    tooltip: "Emite un sonido (beep)",
+    helpUrl: "",
+    previousStatement: null,
+    nextStatement: null,
+  },
+]);
 
 // Generamos la funcionalidad de cada bloque para Frankest
 // Para ello se anexa al generador de Python de blockly
 // las instrucciones propias de Frankest
 
 // Constantes temporales
-var velocidad = '0.6'
-var robot = Code.robot
-Blockly.Python['frankest_adelante'] = function(block) {
-  var number_pasos = block.getFieldValue('pasos');
-  // TODO: Assemble Python into code variable.
-  var code = 'adelante('+velocidad+','+number_pasos+')';
-  code = code + '\n';
+var velocidad = "0.6";
+var robot = "SIMULADOR";
+
+Blockly.Python["inicializar_programa"] = function (block) {
+  let text_nombre_programa = block
+    .getFieldValue("nombre_programa")
+    .replace(/\W/g, "_");
+    // .replace(/ /g, "_");
+  let text_nombre_autor = block.getFieldValue("nombre_autor");
+  let dropdown_robot = block.getFieldValue("robot");
+  // var statements_name = block.getFieldValue("programa_frankest");
+  var statements_name = Blockly.Python.statementToCode(block, "programa_frankest");
+
+  var code = `"""Programa realizado en FrankLab\n\nNombre del Programa: ${text_nombre_programa}\nCreado por: ${text_nombre_autor}\n"""\n\n`;
+  code += `def ${text_nombre_programa}:\n`;
+  code += `  # Cargamos la libreria del robot ${dropdown_robot}\n  from ${dropdown_robot} import *\n`;
+  code += `  # Codigo del programa \n`;
+  code += statements_name + "\n";
+  code += `${text_nombre_programa}() \n`;
   return code;
 };
 
-Blockly.Python['frankest_init'] = function(block) {
-  var text_nombreprograma = block.getFieldValue('NombrePrograma');
-  // TODO: Assemble Python into code variable.
-  var code = 'from '+robot+' import * \ninit() \n';
+Blockly.Python["inicializar_frankestito"] = function (block) {
+  let dropdown_robot = block.getFieldValue("robot");
+
+  var code = `# Cargamos la libreria del robo ${dropdown_robot}\nfrom ${dropdown_robot} import *\n`;
   return code;
 };
 
-Blockly.Python['frankest_girar'] = function(block) {
-  var dropdown_direccion = block.getFieldValue('direccion');
-  var number_pasosgiro = block.getFieldValue('pasosgiro');
-  // TODO: Assemble Python into code variable.
-  var code = dropdown_direccion+'('+velocidad+','+number_pasosgiro+')'+'\nwait(0.5)';
-  code = code + '\n';
+Blockly.Python["adelante"] = function (block) {
+  let number_velocidad = block.getFieldValue("velocidad");
+  let number_tiempo = block.getFieldValue("tiempo");
+
+  var code = `adelante(${number_velocidad},${number_tiempo})\n`;
   return code;
 };
 
-Blockly.Python['frankest_verfoto'] = function(block) {
-  // TODO: Assemble Python into code variable.
-  var code = 'verfoto() \n';
+Blockly.Python["derecha"] = function (block) {
+  let number_velocidad = block.getFieldValue("velocidad");
+  let number_tiempo = block.getFieldValue("tiempo");
+
+  var code = `derecha(${number_velocidad},${number_tiempo})\n`;
   return code;
 };
 
-Blockly.Python['frankest_cuantocolor'] = function(block) {
-  var dropdown_color = block.getFieldValue('color');
-  // TODO: Assemble Python into code variable.
-  var code = 'cuanto_color('+dropdown_color+')\n';
+Blockly.Python["izquierda"] = function (block) {
+  let number_velocidad = block.getFieldValue("velocidad");
+  let number_tiempo = block.getFieldValue("tiempo");
+
+  var code = `izquierda(${number_velocidad},${number_tiempo})\n`;
+  return code;
+};
+
+Blockly.Python["verfoto"] = function (block) {
+  var code = "verfoto()\n";
+  return code;
+};
+
+Blockly.Python["atras"] = function (block) {
+  let number_velocidad = block.getFieldValue("velocidad");
+  let number_tiempo = block.getFieldValue("tiempo");
+
+  var code = `atras(${number_velocidad},${number_tiempo})\n`;
+  return code;
+};
+
+Blockly.Python["buscarcolor"] = function (block) {
+  var dropdown_buscarcolor = block.getFieldValue("buscarcolor");
+
+  var code = `buscarcolor(${dropdown_buscarcolor})`;
   // TODO: Change ORDER_NONE to the correct strength.
-  return [code, Blockly.Python.ORDER_NONE];
+  return [code, Blockly.Python.ORDER_ATOMIC];
 };
 
-Blockly.Python['frankest_atras'] = function(block) {
-  var number_pasos = block.getFieldValue('pasos');
-  // TODO: Assemble Python into code variable.
-  var code = 'atras('+velocidad+','+number_pasos+')';
-  code = code + '\n';
+Blockly.Python["cuantocolor"] = function (block) {
+  var dropdown_cuantocolor = block.getFieldValue("cuantocolor");
+
+  var code = `cuantocolor(${dropdown_cuantocolor})`;
+  // TODO: Change ORDER_NONE to the correct strength.
+  return [code, Blockly.Python.ORDER_ATOMIC];
+};
+
+Blockly.Python["beep"] = function (block) {
+  var code = "beep()\n";
   return code;
 };
