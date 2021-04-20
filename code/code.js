@@ -24,13 +24,13 @@
  * Create a namespace for the application.
  */
 var Code = {};
-// Set available robots
-Code.ROBOT_NAME = {
-  robofaiRojo: "robofai1",
-  robofaiAzul: "robofai2",
-  robofaiNegro: "robofai3",
-  robofaiAmarillo: "robofai4",
-};
+// // Set available robots
+// Code.ROBOT_NAME = {
+//   robofaiRojo: "robofai1",
+//   robofaiAzul: "robofai2",
+//   robofaiNegro: "robofai3",
+//   robofaiAmarillo: "robofai4",
+// };
 
 /**
  * Lookup for names of supported languages.  Keys should be in ISO 639 format.
@@ -118,18 +118,18 @@ Code.getLang = function () {
   return lang;
 };
 
-/**
- * Get the robot of this user from the URL.
- * @return {string} User's robot.
- */
-Code.getRobot = function () {
-  var frank = Code.getStringParamFromUrl("robot", "");
-  if (Code.ROBOT_NAME[frank] === undefined) {
-    // Default to simulator.
-    frank = "robofai";
-  }
-  return frank;
-};
+// /**
+//  * Get the robot of this user from the URL.
+//  * @return {string} User's robot.
+//  */
+// Code.getRobot = function () {
+//   var frank = Code.getStringParamFromUrl("robot", "");
+//   if (Code.ROBOT_NAME[frank] === undefined) {
+//     // Default to simulator.
+//     frank = "Simulador";
+//   }
+//   return frank;
+// };
 
 /**
  * Is the current language (Code.LANG) an RTL language?
@@ -306,7 +306,7 @@ Code.LANG = Code.getLang();
  * User's robot (e.g. "robofaiRojo").
  * @type {string}
  */
-Code.robot = Code.getRobot();
+// Code.robot = Code.getRobot();
 
 /**
  * List of tab names.
@@ -459,7 +459,7 @@ Code.checkAllGeneratorFunctionsDefined = function (generator) {
  */
 Code.init = function () {
   Code.initLanguage();
-  Code.initRobot();
+  // Code.initRobot();
   var rtl = Code.isRtl();
   var container = document.getElementById("content_area");
   var onresize = function (e) {
@@ -636,29 +636,29 @@ Code.initLanguage = function () {
 /**
  * Initialize the page available frankests.
  */
-Code.initRobot = function () {
-  // Set the HTML's language and direction.
-  document.head.parentElement.setAttribute("robot", Code.robot);
+// Code.initRobot = function () {
+//   // Set the HTML's language and direction.
+//   document.head.parentElement.setAttribute("robot", Code.robot);
 
-  var robots = [];
-  for (var frankest in Code.ROBOT_NAME) {
-    robots.push([Code.ROBOT_NAME[frankest], frankest]);
-  }
+//   var robots = [];
+//   for (var frankest in Code.ROBOT_NAME) {
+//     robots.push([Code.ROBOT_NAME[frankest], frankest]);
+//   }
 
-  // Populate robots selection menu
-  var robotMenu = document.getElementById("robotMenu");
-  robotMenu.options.length = 0;
-  for (var i = 0; i < robots.length; i++) {
-    var tuple = robots[i];
-    var frank = tuple[tuple.length - 1];
-    var option = new Option(tuple[0], frank);
-    if (frank == Code.robot) {
-      option.selected = true;
-    }
-    robotMenu.options.add(option);
-  }
-  robotMenu.addEventListener("change", Code.changeRobot, true);
-};
+//   // Populate robots selection menu
+//   var robotMenu = document.getElementById("robotMenu");
+//   robotMenu.options.length = 0;
+//   for (var i = 0; i < robots.length; i++) {
+//     var tuple = robots[i];
+//     var frank = tuple[tuple.length - 1];
+//     var option = new Option(tuple[0], frank);
+//     if (frank == Code.robot) {
+//       option.selected = true;
+//     }
+//     robotMenu.options.add(option);
+//   }
+//   robotMenu.addEventListener("change", Code.changeRobot, true);
+// };
 
 /**
  * Execute the user's code.
