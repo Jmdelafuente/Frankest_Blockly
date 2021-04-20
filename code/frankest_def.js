@@ -298,15 +298,29 @@ Blockly.Python["inicializar_programa"] = function (block) {
     // .replace(/ /g, "_");
   let text_nombre_autor = block.getFieldValue("nombre_autor");
   let dropdown_robot = block.getFieldValue("robot");
-  // var statements_name = block.getFieldValue("programa_frankest");
+  console.log(block);
+  // Get all robots' name
+  let nombres_robot = block.getField("robot");
+  let is_valid = false;
+  // Check if robot exists
+  nombres_robot.menuGenerator_.forEach(([key, value]) => {
+    if(dropdown_robot == value){
+      is_valid = true;
+    }
+  });
+  // If not, get first available
+  if(!is_valid){
+    dropdown_robot = nombres_robot.menuGenerator_[0][1];
+  }
+
   var statements_name = Blockly.Python.statementToCode(block, "programa_frankest");
 
   var code = `"""Programa realizado en FrankLab\n\nNombre del Programa: ${text_nombre_programa}\nCreado por: ${text_nombre_autor}\n"""\n\n`;
-  code += `def ${text_nombre_programa}:\n`;
-  code += `  # Cargamos la libreria del robot ${dropdown_robot}\n  from ${dropdown_robot} import *\n`;
+  code += `def ${text_nombre_programa}():\n`;
+  code += `  # Cargamos la libreria del robot\n  from ${dropdown_robot} import *\n\n`;
   code += `  # Codigo del programa \n`;
   code += statements_name + "\n";
-  code += `${text_nombre_programa}() \n`;
+  code += `${text_nombre_programa}() \n\n`;
   return code;
 };
 
