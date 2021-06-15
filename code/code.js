@@ -18,19 +18,30 @@
  * @fileoverview Blockly and Python for Frankest's Code.
  * @author juan.delafuente@fi.uncoma.edu.ar (Juan de la Fuente)
  */
+/*jslint browser: true */
+/* global console, require, window */
 "use strict";
 
 /**
  * Create a namespace for the application.
  */
 var Code = {};
-// // Set available robots
-// Code.ROBOT_NAME = {
-//   robofaiRojo: "robofai1",
-//   robofaiAzul: "robofai2",
-//   robofaiNegro: "robofai3",
-//   robofaiAmarillo: "robofai4",
-// };
+
+/**
+ * Define server URL
+ */
+
+// Code.server = "file:///home/jota/Git/Frankest_Blockly/code";
+Code.server = "http://localhost/FrankLab/code/";
+
+
+/**
+ * Lookup for available libraries
+ */
+Code.LIBRARY = {
+  basic: "",
+  advance: "av",
+};
 
 /**
  * Lookup for names of supported languages.  Keys should be in ISO 639 format.
@@ -94,6 +105,12 @@ Code.LANGUAGE_RTL = ["ar", "fa", "he", "lki"];
 Code.workspace = null;
 
 /**
+ * Blockly's main library dir.
+ * @type string
+ */
+Code.libpath = "lib/";
+
+/**
  * Extracts a parameter from the URL.
  * If the parameter is absent default_value is returned.
  * @param {string} name The name of the parameter.
@@ -104,6 +121,11 @@ Code.getStringParamFromUrl = function (name, defaultValue) {
   var val = location.search.match(new RegExp("[?&]" + name + "=([^&]+)"));
   return val ? decodeURIComponent(val[1].replace(/\+/g, "%20")) : defaultValue;
 };
+
+/**
+ * Lookup for user libraries
+ */
+Code.key = Code.getStringParamFromUrl("lib", "");
 
 /**
  * Get the language of this user from the URL.
@@ -130,6 +152,32 @@ Code.getLang = function () {
 //   }
 //   return frank;
 // };
+
+/**
+ * Get the library version of this user from the URL.
+ * @return {string} User's library version.
+ */
+Code.getLibrary = function () {
+  let lib = Code.libpath.concat("frankest_def_");
+  if (Code.LIBRARY[Code.key] !== undefined) {
+    lib = lib.concat(Code.LIBRARY[Code.key]);
+  }
+
+  return lib.concat(".js");
+};
+
+/**
+ * Get the toolbox version of this user from the URL.
+ * @return {string} User's toolbox version.
+ */
+Code.getToolbox = function () {
+  let lib = Code.libpath.concat("frankest_def_");
+  if (Code.LIBRARY[Code.key] !== undefined) {
+    lib = lib.concat(Code.LIBRARY[Code.key]);
+  }
+
+  return lib.concat(".xml");
+};
 
 /**
  * Is the current language (Code.LANG) an RTL language?
@@ -316,6 +364,24 @@ Code.TABS_DISPLAY_ = ["Blocks", "Python", "XML"];
 Code.TABS_ = ["blocks", "python", "xml"];
 Code.selected = "blocks";
 
+
+Code.loadXMLDoc = function() {
+  const myInit = {
+    method: "GET",
+    headers: {
+      Accept: "text/xml",
+    },
+    mode: "cors",
+    cache: "default",
+  };
+
+  let myRequest = new Request(Code.getToolbox(), myInit);
+  fetch(myRequest)
+    .then((response) => response.text())
+    .then((text) => document.getElementById("toolbox_div").innerHTML = text)
+    .then((loaded) => Code.init());
+};
+
 /**
  * Switch the visible pane when a tab is clicked.
  * @param {string} clickedName Name of tab clicked.
@@ -498,11 +564,13 @@ Code.init = function () {
   }
 
   // Construct the toolbox XML, replacing translated variable names.
+  // var toolboxText = await Code.loadXMLDoc();
   var toolboxText = document.getElementById("toolbox").outerHTML;
   toolboxText = toolboxText.replace(/(^|[^%]){(\w+)}/g, function (m, p1, p2) {
     return p1 + MSG[p2];
   });
-  var toolboxXml = Blockly.Xml.textToDom(toolboxText);
+
+  // var toolboxXML = Blockly.Xml.textToDom();
 
 
   Code.workspace = Blockly.inject("content_blocks", {
@@ -515,7 +583,7 @@ Code.init = function () {
     horizontalLayout: false,
     toolboxPosition: "start",
     css: true,
-    media: "https://blockly-demo.appspot.com/static/media/",
+    media: Code.server.concat("media/"),
     rtl: false,
     scrollbars: true,
     sounds: true,
@@ -701,5 +769,8 @@ Code.discard = function () {
 document.write('<script src="msg/' + Code.LANG + '.js"></script>\n');
 // Load Blockly's language strings.
 document.write('<script src="msg/js/' + Code.LANG + '.js"></script>\n');
+// Load toolbox library
+document.write(`<script src="`+Code.getLibrary()+`"></script>\n`);
 
-window.addEventListener("load", Code.init);
+// window.addEventListener("load", Code.loadXML);
+Code.loadXMLDoc();
