@@ -37,6 +37,12 @@ Blockly.defineBlocksWithJsonArray([
         max: 1,
         precision: 0.6,
       },
+      // {
+      //   type: "input_value",
+      //   name: "velocidad",
+      //   check: "Number",
+      //   value: 0.6
+      // },
       {
         type: "input_dummy",
         align: "CENTRE",
@@ -88,12 +94,12 @@ Blockly.defineBlocksWithJsonArray([
   // },
   {
     type: "inicializar_programa",
-    message0: "PROGRAMA %1 CREADO POR %2 %3 UTILIZANDO %4 %5",
+    message0: "MODULO %1 CREADO POR %2 %3 UTILIZANDO %4 %5",
     args0: [
       {
         type: "field_input",
         name: "nombre_programa",
-        text: "nombre del Programa",
+        text: "nombre del Modulo",
       },
       {
         type: "field_input",
@@ -223,6 +229,8 @@ Blockly.defineBlocksWithJsonArray([
       },
     ],
     inputsInline: true,
+    previousStatement: null,
+    nextStatement: null,
     colour: 230,
     tooltip: "Girar hacia la derecha una cantidad de segundos",
     helpUrl: "",
@@ -314,11 +322,12 @@ Blockly.Python["inicializar_programa"] = function (block) {
   }
 
   var statements_name = Blockly.Python.statementToCode(block, "programa_frankest");
-
-  var code = `"""Programa realizado en FrankLab\n\nNombre del Programa: ${text_nombre_programa}\nCreado por: ${text_nombre_autor}\n"""\n\n`;
+  // Docstring + main generation with import
+  var code = `"""Módulo realizado en FrankLab\n\nNombre del Módulo: ${text_nombre_programa}\nCreado por: ${text_nombre_autor}\n"""\n\n`;
   code += `def ${text_nombre_programa}():\n`;
-  code += `  # Cargamos la libreria del robot\n  from ${dropdown_robot} import *\n\n`;
-  code += `  # Codigo del programa \n`;
+  // code += `  # Cargamos la librería del robot\n  from ${dropdown_robot} import *\n\n`;
+  code += `  # Cargamos la librería del robot\n  from ${dropdown_robot} import *\n  init()\n\n`;
+  code += `  # Código del programa \n`;
   code += statements_name + "\n";
   code += `${text_nombre_programa}() \n\n`;
   return code;
