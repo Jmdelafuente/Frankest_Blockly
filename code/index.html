@@ -4,7 +4,8 @@
   <meta charset="utf-8">
   <meta name="google" value="notranslate">
   <title>Frankest-Blockly:</title>
-  <link rel="stylesheet" href="style.css">
+  <link href="style.css" rel="stylesheet">
+  <link href="css/all.css" rel="stylesheet">
 </head>       
 <body>
  <div id="overlay">
@@ -47,14 +48,23 @@
               <select id="code_menu"></select>
             </td>
             <td class="tabmax">
-              <button id="trashButton" class="notext" title="...">
-                <img src='media/1x1.gif' class="trash icon21">
+              <a href="ventanaIO.html" target="_blank" rel="noopener noreferrer">
+                Ver Entrada/Salida
+              </a>
+              <button id="trashButton" title="..." aria-hidden="true">
+                <i class="fas fa-trash-alt fa-2x"></i>
               </button>
-              <button id="linkButton" class="notext" title="...">
-                <img src='media/1x1.gif' class="link icon21">
+              <button id="linkButton" title="..." aria-hidden="true">
+                <i class="fas fa-save fa-2x"></i>
               </button>
-              <button id="runButton" class="notext primary" title="...">
-                <img src='media/1x1.gif' class="run icon21">
+              <button id="remixButton" title="..." aria-hidden="true" style="vertical-align: top;">
+                <span class="fa-stack">
+                  <i class="fas fa-spin fa-atom fa-stack-1x"></i>
+                  <i class="far fa-square fa-stack-2x"></i>
+                </span>
+              </button>
+              <button id="runButton" class="primary" title="..." aria-hidden="true">
+                <i class="far fa-play-circle fa-2x"></i>
               </button>
             </td>
           </tr>
@@ -71,20 +81,9 @@
   <pre id="content_python" class="content"></pre>
   <textarea id="content_xml" class="content" wrap="off"></textarea>
   <div id="toolbox_div"></div>
-  <table width="100%" height="15%">
-  <!--<tr>
-      <td height="100%" colspan=2 class="component_td">
-        <button onclick="showComponent('console','arrow')" id="consoleArrow"><i id="arrow" class="arrow up"></i></button>
-      </td>
-    </tr> -->
-    <tr id="console-tr">
-      <td colspan=2 class="component_td">
-        <div id="console" class="componente">
-          <p id="cl-0">¡Bienvenido a la consola! <br> Podrás ver en este espacio todos los mensajes de entrada y salida de la ejecución de tus bloques.</p>
-        </div>
-      </td>
-    </tr>
-  </table>
+  <div id="console" class="componente">
+    <p id="cl-0">¡Bienvenido a la consola! <br> Podrás ver en este espacio todos los mensajes de entrada y salida de la ejecución de tus bloques.</p>
+  </div>
 </body>
   <script src="http://localhost:3000/socket.io/socket.io.js"></script>
   <script src="js/utils.js"></script>
