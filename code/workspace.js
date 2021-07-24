@@ -132,7 +132,8 @@ Code.getStringParamFromUrl = function (name, defaultValue) {
  * Lookup for user libraries
  */
 Code.key = Code.getStringParamFromUrl("lib", "");
-Code.xml = Code.getStringParamFromUrl("id","");
+Code.xml = Code.getStringParamFromUrl("id", "");
+Code.remix = Code.getStringParamFromUrl("remix", "");
 
 /**
  * Get the language of this user from the URL.
@@ -604,6 +605,23 @@ Code.init = function () {
     scrollbars: true,
     sounds: true,
     oneBasedIndex: true,
+    zoom:
+    {
+      controls: true,
+      wheel: true,
+      startScale: 1.0,
+      maxScale: 3,
+      minScale: 0.3,
+      scaleSpeed: 1.2,
+      pinch: true
+    },
+    grid:
+    {
+      spacing: 30,
+      length: 3,
+      colour: '#ccc',
+      snap: true
+    },
   });
 
   // Add to reserved word list: Local variables in execution environment (runJS)
@@ -626,6 +644,7 @@ Code.init = function () {
   Code.bindClick("runButton", Code.runJS);
   // Disable the link button if page isn't backed by App Engine storage.
   var linkButton = document.getElementById("linkButton");
+  var remixButton = document.getElementById("remixButton");
   // if ("BlocklyStorage" in window) {
   //   BlocklyStorage["HTTPREQUEST_ERROR"] = MSG["httpRequestError"];
   //   BlocklyStorage["LINK_ALERT"] = MSG["linkAlert"];
@@ -645,6 +664,15 @@ Code.init = function () {
       id = sessionStorage.getItem("idURL");
     }
     saveWorkspace(xml,id);
+  });
+
+  Code.bindClick(remixButton, function () {
+    let xml = Code.workspaceToXML();
+    let id = '';
+    if (sessionStorage.getItem("idURL") && sessionStorage.getItem("idURL") != 'undefined') {
+      id = sessionStorage.getItem("idURL");
+    }
+    saveWorkspace(xml, id, true);
   });
 
   for (var i = 0; i < Code.TABS_.length; i++) {
@@ -722,36 +750,10 @@ Code.initLanguage = function () {
   document.getElementById("tab_blocks").textContent = MSG["blocks"];
 
   document.getElementById("linkButton").title = MSG["linkTooltip"];
+  document.getElementById("remixButton").title = MSG["remixTooltip"];
   document.getElementById("runButton").title = MSG["runTooltip"];
   document.getElementById("trashButton").title = MSG["trashTooltip"];
 };
-
-/**
- * Initialize the page available frankests.
- */
-// Code.initRobot = function () {
-//   // Set the HTML's language and direction.
-//   document.head.parentElement.setAttribute("robot", Code.robot);
-
-//   var robots = [];
-//   for (var frankest in Code.ROBOT_NAME) {
-//     robots.push([Code.ROBOT_NAME[frankest], frankest]);
-//   }
-
-//   // Populate robots selection menu
-//   var robotMenu = document.getElementById("robotMenu");
-//   robotMenu.options.length = 0;
-//   for (var i = 0; i < robots.length; i++) {
-//     var tuple = robots[i];
-//     var frank = tuple[tuple.length - 1];
-//     var option = new Option(tuple[0], frank);
-//     if (frank == Code.robot) {
-//       option.selected = true;
-//     }
-//     robotMenu.options.add(option);
-//   }
-//   robotMenu.addEventListener("change", Code.changeRobot, true);
-// };
 
 /**
  * Discard all blocks from the workspace.
@@ -788,9 +790,10 @@ Code.loadXML = function (xml_text) {
 Code.loadURL = function(id){
   overlayOn();
   setTimeout(function () {
+    Code.workspace.clear();
     loadWorkspace(id);
     overlayOff();
-  }, 5000);
+  }, 4000);
 };
 
 Code.saveURL = function(id){
@@ -800,17 +803,29 @@ Code.saveURL = function(id){
   showModal(url);
 };
 
-// Load the Code demo's language strings.
-document.write('<script src="msg/' + Code.LANG + '.js"></script>\n');
+Code.saveRemixURL = function (id) {
+  let url = Code.SERVER.concat("?remix=").concat(id);
+  if (sessionStorage.getItem("idURL") && sessionStorage.getItem("idURL") != 'undefined'){
+    sessionStorage.setItem("idURL", id);
+    sessionStorage.setItem("url", url);
+  }
+  showModal(url);
+};
+
+// Load the language strings.
+document.write(`<script src="msg/${Code.LANG}.js"></script>\n`);
 // Load Blockly's language strings.
-document.write('<script src="msg/js/' + Code.LANG + '.js"></script>\n');
+document.write(`<script src="msg/js/${Code.LANG}.js"></script>\n`);
 // Load toolbox library
-document.write(`<script src="`+Code.getLibrary()+`"></script>\n`);
+document.write(`<script src="${Code.getLibrary()}"></script>\n`);
 // Load comm library
-document.write(`<script src="`+Code.getComm()+`"></script>\n`);
+document.write(`<script src="${Code.getComm()}"></script>\n`);
 
 // window.addEventListener("load", Code.loadXML);
 Code.loadXMLDoc();
-if (Code.xml != ""){
-  Code.loadURL(Code.xml);
+if (Code.xml != "" || Code.remix != ""){
+  if (Code.xml != ""){
+    sessionStorage.setItem("idURL", Code.xml);
+  }
+  Code.loadURL(Code.xml || Code.remix);
 }
