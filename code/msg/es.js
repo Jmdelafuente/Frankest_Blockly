@@ -2,6 +2,7 @@ var MSG = {
   title: "Código",
   blocks: "Bloques",
   linkTooltip: "Guarda conexión a los bloques.",
+  remixTooltip: "Comparte tus bloques para remixarlos.",
   runTooltip: "Ejecute el programa definido por los bloques en el área de trabajo.",
   badCode: "Error del programa:\n%1",
   timeout: "Se excedio el máximo de iteraciones ejecutadas permitidas.",
