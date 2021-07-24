@@ -29,6 +29,7 @@ function addConsoleMessage(message){
   }
   IOconsole.append(p);
   IOconsole.scrollTop = IOconsole.scrollHeight - IOconsole.clientHeight;
+  consoleLine += 1;
 }
 
 function showModal(message){
