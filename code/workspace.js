@@ -53,50 +53,8 @@ Code.LIBRARY = {
  * Lookup for names of supported languages.  Keys should be in ISO 639 format.
  */
 Code.LANGUAGE_NAME = {
-  ar: "العربية",
-  "be-tarask": "Taraškievica",
-  br: "Brezhoneg",
-  ca: "Català",
-  cs: "Česky",
-  da: "Dansk",
-  de: "Deutsch",
-  el: "Ελληνικά",
   en: "English",
   es: "Español",
-  et: "Eesti",
-  fa: "فارسی",
-  fr: "Français",
-  he: "עברית",
-  hrx: "Hunsrik",
-  hu: "Magyar",
-  ia: "Interlingua",
-  is: "Íslenska",
-  it: "Italiano",
-  ja: "日本語",
-  kab: "Kabyle",
-  ko: "한국어",
-  mk: "Македонски",
-  ms: "Bahasa Melayu",
-  nb: "Norsk Bokmål",
-  nl: "Nederlands, Vlaams",
-  oc: "Lenga d'òc",
-  pl: "Polski",
-  pms: "Piemontèis",
-  "pt-br": "Português Brasileiro",
-  ro: "Română",
-  ru: "Русский",
-  sc: "Sardu",
-  sk: "Slovenčina",
-  sr: "Српски",
-  sv: "Svenska",
-  ta: "தமிழ்",
-  th: "ภาษาไทย",
-  tlh: "tlhIngan Hol",
-  tr: "Türkçe",
-  uk: "Українська",
-  vi: "Tiếng Việt",
-  "zh-hans": "简体中文",
-  "zh-hant": "正體中文",
 };
 
 /**
@@ -170,7 +128,6 @@ Code.getLibrary = function () {
   if (Code.LIBRARY[Code.key] !== undefined) {
     lib = lib.concat(Code.LIBRARY[Code.key]);
   }
-
   return lib.concat(".js");
 };
 
@@ -328,14 +285,14 @@ Code.bindClick = function (el, func) {
 /**
  * Load the Prettify CSS and JavaScript.
  */
-Code.importPrettify = function () {
-  var script = document.createElement("script");
-  script.setAttribute(
-    "src",
-    "https://cdn.rawgit.com/google/code-prettify/master/loader/run_prettify.js"
-  );
-  document.head.appendChild(script);
-};
+// Code.importPrettify = function () {
+//   var script = document.createElement("script");
+//   script.setAttribute(
+//     "src",
+//     "https://cdn.rawgit.com/google/code-prettify/master/loader/run_prettify.js"
+//   );
+//   document.head.appendChild(script);
+// };
 
 /**
  * Compute the absolute coordinates and dimensions of an HTML element.
@@ -698,7 +655,7 @@ Code.init = function () {
   Blockly.svgResize(Code.workspace);
 
   // Lazy-load the syntax-highlighting.
-  window.setTimeout(Code.importPrettify, 1);
+  // window.setTimeout(Code.importPrettify, 1);
 };
 
 /**
