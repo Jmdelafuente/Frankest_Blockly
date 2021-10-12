@@ -45,3 +45,20 @@ function showModal(message){
  function overlayOff() {
    document.getElementById("overlay").style.display = "none";
  }
+
+ function showConsoleInput(){
+   let consoleInput = document.getElementById('console-input');
+   let IOconsole = document.getElementById("console");
+   consoleInput.parentNode.appendChild(consoleInput);
+   consoleInput.style.display = "block";
+   IOconsole.scrollTop = IOconsole.scrollHeight - IOconsole.clientHeight;
+   consoleInput.focus();
+ }
+
+document.getElementById('console-input').addEventListener("submit", function(e){
+  e.preventDefault(); // previene recarga de la pagina
+  socket.emit('valorIO', document.getElementById('m').value);
+  document.getElementById('m').value = ""
+  document.getElementById('console-input').style.display = "none";
+  return false;
+});
