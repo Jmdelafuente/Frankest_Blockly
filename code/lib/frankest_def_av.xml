@@ -74,6 +74,8 @@
   </category>
   <category name="Interacción" colour="#995ba5">
     <block type="beep"></block>
+    <block type="led_izquierdo"></block>
+    <block type="led_derecho"></block>
   </category>
   <sep></sep>
   <category name="General"></category>

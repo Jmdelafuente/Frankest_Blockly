@@ -229,6 +229,24 @@ Blockly.defineBlocksWithJsonArray([
     previousStatement: null,
     nextStatement: null,
   },
+  {
+    type: "led_izquierdo",
+    message0: "Led izquierdo",
+    colour: 290,
+    tooltip: "Enciende la luz izquierda momentaneamente",
+    helpUrl: "",
+    previousStatement: null,
+    nextStatement: null,
+  },
+  {
+    type: "led_derecho",
+    message0: "Led derecho",
+    colour: 290,
+    tooltip: "Enciende la luz derecha momentaneamente",
+    helpUrl: "",
+    previousStatement: null,
+    nextStatement: null,
+  },
 ]);
 
 // Generamos la funcionalidad de cada bloque para Frankest
@@ -384,5 +402,15 @@ Blockly.Python["color"] = function (block) {
 
 Blockly.Python["beep"] = function (block) {
   var code = "beep()\n";
+  return code;
+};
+
+Blockly.Python["led_izquierdo"] = function (block) {
+  var code = "luz_izq_on()\nwait(.5)\nluz_izq_off()\n";
+  return code;
+};
+
+Blockly.Python["led_derecho"] = function (block) {
+  var code = "luz_der_on()\nwait(.5)\nluz_der_off()\n";
   return code;
 };
