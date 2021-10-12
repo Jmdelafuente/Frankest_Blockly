@@ -1,27 +1,5 @@
 // Generamos los bloques gráficos de Frankest y los agregamos a Blockly
 Blockly.defineBlocksWithJsonArray([
-  // {
-  //   type: "inicializar_frankestito",
-  //   message0: "Utilizar robot %1",
-  //   args0: [
-  //     {
-  //       type: "field_dropdown",
-  //       name: "robot",
-  //       options: [
-  //         ["simulador", "robofai"],
-  //         ["rojo", "robofaiRojo"],
-  //         ["azul", "robofaiAzul"],
-  //         ["blanco", "robofaiBlanco"],
-  //         ["negro", "robofaiNegro"],
-  //       ],
-  //     },
-  //   ],
-  //   previousStatement: "inicializar_frankestito",
-  //   nextStatement: null,
-  //   colour: 60,
-  //   tooltip: "Elige un robot para ejecutar el programa",
-  //   helpUrl: "",
-  // },
   {
     type: "adelante",
     message0: "Adelante %1 a velocidad %2 %3 durante %4 segundos",
@@ -37,12 +15,6 @@ Blockly.defineBlocksWithJsonArray([
         max: 1,
         precision: 0.6,
       },
-      // {
-      //   type: "input_value",
-      //   name: "velocidad",
-      //   check: "Number",
-      //   value: 0.6
-      // },
       {
         type: "input_dummy",
         align: "CENTRE",
@@ -72,26 +44,6 @@ Blockly.defineBlocksWithJsonArray([
     tooltip: "Tomar una foto y visualizarla",
     helpUrl: "",
   },
-  // {
-  //   type: "inicializar_programa",
-  //   message0: "PROGRAMA %1 CREADO POR %2",
-  //   args0: [
-  //     {
-  //       type: "field_input",
-  //       name: "nombre_programa",
-  //       text: "Nombre del Programa",
-  //     },
-  //     {
-  //       type: "field_input",
-  //       name: "nombre_autor",
-  //       text: "autores",
-  //     },
-  //   ],
-  //   nextStatement: "robot",
-  //   colour: 60,
-  //   tooltip: "Comenzar a utilizar a Frankestito",
-  //   helpUrl: "",
-  // },
   {
     type: "inicializar_programa",
     message0: "MODULO %1 CREADO POR %2 %3 UTILIZANDO %4 %5",
