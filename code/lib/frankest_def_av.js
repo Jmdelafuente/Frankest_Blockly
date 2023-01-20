@@ -30,15 +30,15 @@ Blockly.defineBlocksWithJsonArray([
     tooltip: "Avanzar durante una cantidad de segundos",
     helpUrl: "",
   },
-  {
-    type: "verfoto",
-    message0: "Ver foto",
-    previousStatement: null,
-    nextStatement: null,
-    colour: 160,
-    tooltip: "Tomar una foto y visualizarla",
-    helpUrl: "",
-  },
+  // {
+  //   type: "verfoto",
+  //   message0: "Ver foto",
+  //   previousStatement: null,
+  //   nextStatement: null,
+  //   colour: 160,
+  //   tooltip: "Tomar una foto y visualizarla",
+  //   helpUrl: "",
+  // },
   {
     type: "inicializar_programa",
     message0: "MODULO %1 CREADO POR %2 %3 UTILIZANDO %4 %5",
@@ -264,7 +264,6 @@ Blockly.Python["inicializar_programa"] = function (block) {
     // .replace(/ /g, "_");
   let text_nombre_autor = block.getFieldValue("nombre_autor");
   let dropdown_robot = block.getFieldValue("robot");
-  console.log(block);
   // Get all robots' name
   let nombres_robot = block.getField("robot");
   let is_valid = false;
@@ -286,6 +285,7 @@ Blockly.Python["inicializar_programa"] = function (block) {
   var code = `"""Módulo realizado en FrankLab\n\nNombre del Módulo: ${text_nombre_programa}\nCreado por: ${text_nombre_autor}\n"""\n\n`;
   code += `def ${text_nombre_programa}():\n`;
   code += `  # Cargamos la librería del robot\n  from ${dropdown_robot} import *\n  init()\n\n`;
+  code += `  print('-> Frankestito listo')\n\n`;
   code += `  # Código del programa \n`;
   code += statements_name + "\n";
   code += `${text_nombre_programa}() \n\n`;
@@ -294,7 +294,6 @@ Blockly.Python["inicializar_programa"] = function (block) {
 
 Blockly.Python["inicializar_frankestito"] = function (block) {
   let dropdown_robot = block.getFieldValue("robot");
-
   var code = `# Cargamos la libreria del robot ${dropdown_robot}\nfrom ${dropdown_robot} import *\n`;
   return code;
 };
@@ -348,10 +347,10 @@ Blockly.Python["izquierda"] = function (block) {
   return code;
 };
 
-Blockly.Python["verfoto"] = function (block) {
-  var code = "verfoto()\n";
-  return code;
-};
+// Blockly.Python["verfoto"] = function (block) {
+//   var code = "verfoto()\n";
+//   return code;
+// };
 
 Blockly.Python["atras"] = function (block) {
   let number_velocidad = Blockly.Python.valueToCode(
@@ -376,7 +375,6 @@ Blockly.Python["buscarcolor"] = function (block) {
     Blockly.Python.ORDER_ATOMIC
   );
   var code = `buscarcolor(${value_name})`;
-  // TODO: Change ORDER_NONE to the correct strength.
   return [code, Blockly.Python.ORDER_ATOMIC];
 };
 
@@ -388,15 +386,12 @@ Blockly.Python["cuantocolor"] = function (block) {
   );
 
   var code = `cuantocolor(${value_name})`;
-  // TODO: Change ORDER_NONE to the correct strength.
   return [code, Blockly.Python.ORDER_ATOMIC];
 };
 
 Blockly.Python["color"] = function (block) {
   var dropdown_color = block.getFieldValue("COLOR");
-  // TODO: Assemble Python into code variable.
   var code = `"${dropdown_color}"`;
-  // TODO: Change ORDER_NONE to the correct strength.
   return [code, Blockly.Python.ORDER_ATOMIC];
 };
 

@@ -49,7 +49,7 @@
     <div class="loader"></div> 
   </p>
  </div> 
-   <table width="75%" height="80%">
+   <table width="75%" height="80%" id="gui">
     <tr hidden>
         <td>
           <h1>
@@ -104,20 +104,25 @@
       </td>
     </tr>
     <tr>
-      <td colspan=2>
-        <div id="console" class="componente">
-          <p id="cl-0">¡Bienvenido a la consola! <br> Podrás ver en este espacio todos los mensajes de entrada y salida de la
-            ejecución de tus bloques.</p>
-          <form id="console-input" action="">
-            <input id="m" autocomplete="off" /><button>Enviar</button>
-          </form>
+      <td>
+        <div id="console-container">
+          <div id="console" class="componente">
+            <p id="cl-0" style="font-weight: bold;">¡Bienvenido a la consola! <br> Podrás ver en este espacio todos los mensajes de entrada y salida de la
+              ejecución de tus bloques.</p>
+            <form id="console-input" action="">
+              <div id='console-input-message' style="font-weight: bold;"></div> <input id="m" autocomplete="off" /><button>Enviar</button>
+            </form>
+          </div>
         </div>
+      </td>
+      <td>
+        <img id=imgstream src="media/img-default.jpg" alt="Cargando visión de Frankestito ..." class="stream" onerror="this.onerror=null; this.src='img-default.jpg';" hidden>
       </td>
     </tr>
   </table>
 
 </body>
-  <script src="http://localhost:3000/socket.io/socket.io.js"></script>
+  <script src="http://192.168.122.187:3000/socket.io/socket.io.js"></script>
   <script src="js/utils.js"></script>
   <script src="js/storage.js"></script>
   <script src="js/blockly_compressed.js"></script>

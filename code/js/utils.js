@@ -1,4 +1,4 @@
-var consoleLine = 0;
+var consoleLine = 1;
 
 function showComponent(componentName,arrowName) {
   var i;
@@ -19,21 +19,25 @@ function showComponent(componentName,arrowName) {
   }
 }
 
-function addConsoleMessage(message){
+function addConsoleMessage(message, priority = false){
   let IOconsole = document.getElementById("console");
+  let IOConsoleParent = IOconsole.parentElement;
   let p = document.createElement("p");
+  if(priority){
+    p.style = "font-weight: bold;";
+  }
   p.id = "cl-"+consoleLine;
   p.innerText = message;
   if(IOconsole.parentElement.style.display == "none"){
     IOconsole.parentElement.style.display = "block";
   }
   IOconsole.append(p);
-  IOconsole.scrollTop = IOconsole.scrollHeight - IOconsole.clientHeight;
+  IOConsoleParent.scrollTop = IOConsoleParent.scrollHeight - IOConsoleParent.clientHeight;
   consoleLine += 1;
 }
 
-function showModal(message){
-  const modal = new Modal(message,Code.workspace);
+function showModal(message, title=""){
+  const modal = new Modal(title, message,Code.workspace);
   modal.init();
   modal.show();
 }
@@ -46,9 +50,11 @@ function showModal(message){
    document.getElementById("overlay").style.display = "none";
  }
 
- function showConsoleInput(){
+ function showConsoleInput(message){
    let consoleInput = document.getElementById('console-input');
    let IOconsole = document.getElementById("console");
+   let consolePrompt = document.getElementById("console-input-message");
+   consolePrompt.innerText = message;
    consoleInput.parentNode.appendChild(consoleInput);
    consoleInput.style.display = "block";
    IOconsole.scrollTop = IOconsole.scrollHeight - IOconsole.clientHeight;
@@ -57,8 +63,30 @@ function showModal(message){
 
 document.getElementById('console-input').addEventListener("submit", function(e){
   e.preventDefault(); // previene recarga de la pagina
-  socket.emit('valorIO', document.getElementById('m').value);
+  let msj = {}
+  msj.value = document.getElementById('m').value
+  msj.id = getValue("idURL");
+  socket.emit('valorIO', msj);
   document.getElementById('m').value = ""
   document.getElementById('console-input').style.display = "none";
+  document.getElementById("console-input-message").innerText = "";
   return false;
 });
+
+function setValue(key, value){
+  sessionStorage.setItem(key, value);
+}
+
+function getValue(key) {
+  return sessionStorage.getItem(key);
+}
+
+function activeStream(url){
+  document.getElementById("imgstream").src = url;
+  document.getElementById("imgstream").removeAttribute("hidden");
+}
+
+function deactiveStream() {
+  document.getElementById("imgstream").src = "media/img-default.jpg";
+  document.getElementById("imgstream").setAttribute("hidden","");
+}

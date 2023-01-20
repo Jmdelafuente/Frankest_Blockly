@@ -32,8 +32,9 @@ var Code = {};
  */
 
 // Code.server = "file:///home/jota/Git/Frankest_Blockly/code";
+// Code.SERVER = "https://incuba.fi.uncoma.edu.ar/franklab/code/";
 Code.SERVER = "http://localhost/FrankLab/code/";
-Code.BACKEND = "http://localhost:3000";
+Code.BACKEND = "http://192.168.122.187:3000";
 /***
  * Initialize list of special blocks
  */
@@ -152,6 +153,22 @@ Code.getToolbox = function () {
 
   return lib.concat(".xml");
 };
+
+/**
+ * Start robot's vision streaming
+ * for given URL
+ * @param {string} robotURL URL for streaming
+ */
+Code.startStream = function (robotURL){
+  activeStream(robotURL);
+}
+
+/**
+ * Stop robot's vision streaming
+ */
+Code.stopStream = function () {
+  deactiveStream();
+}
 
 /**
  * Is the current language (Code.LANG) an RTL language?
@@ -755,18 +772,21 @@ Code.loadURL = function(id){
 
 Code.saveURL = function(id){
   let url = Code.SERVER.concat("?id=").concat(id);
-  sessionStorage.setItem("idURL", id);
-  sessionStorage.setItem("url", url);
-  showModal(url);
+  if (Code.key){
+    url = url.concat("&lib=").concat(Code.key);
+  }
+  setValue("idURL", id);
+  setValue("url", url);
+  showModal(url, "Agenda tu espacio de trabajo:");
 };
 
 Code.saveRemixURL = function (id) {
-  let url = Code.SERVER.concat("?remix=").concat(id);
+  let url = Code.SERVER.concat("?remix=").concat(id).concat("&lib=").concat(Code.key);;
   if (sessionStorage.getItem("idURL") && sessionStorage.getItem("idURL") != 'undefined'){
-    sessionStorage.setItem("idURL", id);
-    sessionStorage.setItem("url", url);
+    setValue("idURL", id);
+    setValue("url", url);
   }
-  showModal(url);
+  showModal(url, "Compartí tus bloques:");
 };
 
 // Load the language strings.

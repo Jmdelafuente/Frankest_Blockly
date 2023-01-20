@@ -22,13 +22,20 @@ class Modal {
    * @param {!Blockly.WorkspaceSvg} workspace The workspace to display the modal
    *     over.
    */
-  constructor(title, workspace) {
+  constructor(title, body="", workspace) {
     /**
      * The title for the modal.
      * @type {string}
      * @private
      */
     this.title_ = title;
+
+    /**
+     * The body content for the modal.
+     * @type {string}
+     * @private
+     */
+    this.body_ = body;
 
     /**
      * The workspace to display the modal over.
@@ -312,7 +319,9 @@ class Modal {
    * @protected
    */
   renderContent_(_contentContainer) {
-    // No-op on the base class.
+    const modalBody = document.createElement('p');
+    modalBody.appendChild(document.createTextNode(this.body_));
+    _contentContainer.appendChild(modalBody);
   }
 
   /**

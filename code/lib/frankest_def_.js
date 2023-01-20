@@ -35,15 +35,15 @@ Blockly.defineBlocksWithJsonArray([
     tooltip: "Avanzar durante una cantidad de segundos",
     helpUrl: "",
   },
-  {
-    type: "verfoto",
-    message0: "Ver foto",
-    previousStatement: null,
-    nextStatement: null,
-    colour: 160,
-    tooltip: "Tomar una foto y visualizarla",
-    helpUrl: "",
-  },
+  // {
+  //   type: "verfoto",
+  //   message0: "Ver foto",
+  //   previousStatement: null,
+  //   nextStatement: null,
+  //   colour: 160,
+  //   tooltip: "Tomar una foto y visualizarla",
+  //   helpUrl: "",
+  // },
   {
     type: "inicializar_programa",
     message0: "MODULO %1 CREADO POR %2 %3 UTILIZANDO %4 %5",
@@ -258,7 +258,6 @@ Blockly.Python["inicializar_programa"] = function (block) {
     // .replace(/ /g, "_");
   let text_nombre_autor = block.getFieldValue("nombre_autor");
   let dropdown_robot = block.getFieldValue("robot");
-  console.log(block);
   // Get all robots' name
   let nombres_robot = block.getField("robot");
   let is_valid = false;
@@ -316,10 +315,10 @@ Blockly.Python["izquierda"] = function (block) {
   return code;
 };
 
-Blockly.Python["verfoto"] = function (block) {
-  var code = "verfoto()\n";
-  return code;
-};
+// Blockly.Python["verfoto"] = function (block) {
+//   var code = "verfoto()\n";
+//   return code;
+// };
 
 Blockly.Python["atras"] = function (block) {
   let number_velocidad = block.getFieldValue("velocidad");
